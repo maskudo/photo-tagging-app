@@ -26,16 +26,16 @@ function GameScreen() {
     const [characters, setCharacters] = useState(['John Bloodborne', 'Sekiro', 'Kratos'])
     const characterLocations = {
         'Kratos': {
-            x:930,
-            y:1820 
+            x:61,
+            y:56 
         }, 
         'Sekiro': {
-            x:1020,
-            y:1540
+            x:67,
+            y:47
         },
         'John Bloodborne': {
-            x:1110,
-            y:1730
+            x:73,
+            y:53
         }
     }
     
@@ -45,12 +45,12 @@ function GameScreen() {
         const imgObj = document.querySelector("#bg-image")
         const startCoord = headerObj.getBoundingClientRect()
         const imgCoord = imgObj.getBoundingClientRect()
-
         let x_coord = Math.round(e.pageX - startCoord.x)
         let y_coord =  Math.round(e.pageY - startCoord.height)
+        
         setClickedCoord({
-            x:x_coord,
-            y:y_coord
+            x:Math.round(x_coord*100/imgCoord.width),
+            y:Math.round(y_coord*100/imgCoord.height)
         })
 
         if (startCoord.width - x_coord < 100){
@@ -59,7 +59,6 @@ function GameScreen() {
         if (imgCoord.height - y_coord < 100){
             y_coord -= 100
         }
-
         setDropDownCoord({
             left:x_coord,
             top:y_coord
@@ -67,8 +66,8 @@ function GameScreen() {
         setActive(true);
     } 
     const checkCoordinates = (character) => {
-        if (Math.abs(characterLocations[character].x - clickedCoord.x) < 75){
-            if (Math.abs(characterLocations[character].y - clickedCoord.y) < 75){
+        if (Math.abs(characterLocations[character].x - clickedCoord.x) < 5){
+            if (Math.abs(characterLocations[character].y - clickedCoord.y) < 5){
                 setCharacters(characters.filter((char) => {
                     return !(character===char)
                 }))
