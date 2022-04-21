@@ -12,8 +12,6 @@ const Title = styled.div`
 
 function Dropdown(props) {
     const {left, top, characters, buttonOnClick} = props
-    console.log("clicked",left,top)
-
     return (
         <Title left={left} top={top} >
             {characters.map((character) => {
