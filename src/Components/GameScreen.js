@@ -18,6 +18,10 @@ function GameScreen() {
         left:-1,
         top:-1
     }); 
+    const [clickedCoord, setClickedCoord] = useState({
+        x:-1,
+        y:-1
+    })
     const [active, setActive] = useState(false)
     const [characters, setCharacters] = useState(['John Bloodborne', 'Sekiro', 'Kratos'])
     const characterLocations = {
@@ -44,9 +48,13 @@ function GameScreen() {
 
         let x_coord = Math.round(e.pageX - startCoord.x)
         let y_coord =  Math.round(e.pageY - startCoord.height)
+        setClickedCoord({
+            x:x_coord,
+            y:y_coord
+        })
 
         if (startCoord.width - x_coord < 100){
-            x_coord -= 100
+            x_coord -= 150
         }
         if (imgCoord.height - y_coord < 100){
             y_coord -= 100
@@ -59,9 +67,8 @@ function GameScreen() {
         setActive(true);
     } 
     const checkCoordinates = (character) => {
-        console.log(characterLocations[character], dropDownCoord)
-        if (Math.abs(characterLocations[character].x - dropDownCoord.left) < 100){
-            if (Math.abs(characterLocations[character].y - dropDownCoord.top) < 100){
+        if (Math.abs(characterLocations[character].x - clickedCoord.x) < 75){
+            if (Math.abs(characterLocations[character].y - clickedCoord.y) < 75){
                 setCharacters(characters.filter((char) => {
                     return !(character===char)
                 }))
