@@ -1,17 +1,53 @@
+import { useState } from "react";
 import backgroundImg from "../Assets/Img/background.jpg"
+import Dropdown from "./Dropdown"
+import styled from "styled-components";
+
+const GameScreenDiv = styled.div`
+    position:relative;
+    width:100%;
+`
+const Image = styled.img`
+    position:absolute;
+    width: 100%;
+    z-index: 1;
+`
 
 function GameScreen() {
+    const [dropDownCoord, setDropDownCoord] = useState({
+        left:-1,
+        top:-1
+    }); 
+    const [active, setActive] = useState(false)
+    
     const imgOnClick = (e) => {
-        const imgObj = document.getElementById("game-screen")
-        const startCoord = imgObj.getBoundingClientRect()
-        const x_coord = Math.round(e.pageX - startCoord.x)
-        const y_coord =  Math.round(e.pageY - startCoord.y)
-        console.log(x_coord,y_coord)
+        e.preventDefault()
+        const headerObj = document.querySelector(".header")
+        const imgObj = document.querySelector("#bg-image")
+        const startCoord = headerObj.getBoundingClientRect()
+        const imgCoord = imgObj.getBoundingClientRect()
+
+        let x_coord = Math.round(e.pageX - startCoord.x)
+        let y_coord =  Math.round(e.pageY - startCoord.height)
+
+        if (startCoord.width - x_coord < 100){
+            x_coord -= 100
+        }
+        if (imgCoord.height - y_coord < 100){
+            y_coord -= 100
+        }
+
+        setDropDownCoord({
+            left:x_coord,
+            top:y_coord
+        })
+        setActive(!active);
     } 
     return (
-        <div id='game-screen'>
-            <img onClick={imgOnClick} className="game-img" id="game-img" src={backgroundImg} alt="game-img" />
-        </div>
+        <GameScreenDiv>
+            <Image onClick={imgOnClick} src={backgroundImg} id="bg-image" alt="game-img"/>
+            {active && <Dropdown left={dropDownCoord.left} top={dropDownCoord.top}/>}
+        </GameScreenDiv>
     );
 }
 
