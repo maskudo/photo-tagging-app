@@ -1,7 +1,9 @@
 import { useState } from "react";
-import backgroundImg from "../Assets/Img/background.jpg"
-import Dropdown from "./Dropdown"
+// import backgroundImg from "../Assets/Img/background.jpg"
+import Dropdown from "./Dropdown";
 import styled from "styled-components";
+const backgroundImg = "https://firebasestorage.googleapis.com/v0/b/photo-tagging-game-29e4c.appspot.com/o/ps4%2Fbackground.jpg?alt=media&token=2d0e4950-c574-4054-8185-de85a0f8a4e6"
+
 
 const GameScreenDiv = styled.div`
     position:relative;
@@ -27,15 +29,18 @@ function GameScreen() {
     const characterLocations = {
         'Kratos': {
             x:61,
-            y:56 
+            y:56, 
+            sprite: "https://firebasestorage.googleapis.com/v0/b/photo-tagging-game-29e4c.appspot.com/o/ps4%2Fkratos.png?alt=media&token=35ae6f10-fd01-4dc6-b0a2-f54bd6bfaa80"
         }, 
         'Sekiro': {
             x:67,
-            y:47
+            y:47,
+            sprite: "https://firebasestorage.googleapis.com/v0/b/photo-tagging-game-29e4c.appspot.com/o/ps4%2Fsekiro.png?alt=media&token=2b9f3be4-29e2-43b1-a3b4-c322fa0281e0"
         },
         'John Bloodborne': {
             x:73,
-            y:53
+            y:53,
+            sprite: "https://firebasestorage.googleapis.com/v0/b/photo-tagging-game-29e4c.appspot.com/o/ps4%2Fbloodborne.png?alt=media&token=3773b02e-9224-4af9-add6-9c03e6b0a134"
         }
     }
     
