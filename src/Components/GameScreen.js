@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 // import backgroundImg from "../Assets/Img/background.jpg"
 import Dropdown from "./Dropdown";
 import styled from "styled-components";
+import { GameContext } from "./GameContextProvider";
 const backgroundImg = "https://firebasestorage.googleapis.com/v0/b/photo-tagging-game-29e4c.appspot.com/o/ps4%2Fbackground.jpg?alt=media&token=2d0e4950-c574-4054-8185-de85a0f8a4e6"
 
 
@@ -16,6 +17,7 @@ const Image = styled.img`
 `
 
 function GameScreen() {
+    const {setIsOver} = useContext(GameContext)
     const [dropDownCoord, setDropDownCoord] = useState({
         left:-1,
         top:-1
@@ -73,6 +75,9 @@ function GameScreen() {
     const checkCoordinates = (character) => {
         if (Math.abs(characterLocations[character].x - clickedCoord.x) < 5){
             if (Math.abs(characterLocations[character].y - clickedCoord.y) < 5){
+                if(characters.length === 1){
+                    setIsOver(true)
+                }
                 setCharacters(characters.filter((char) => {
                     return !(character===char)
                 }))
