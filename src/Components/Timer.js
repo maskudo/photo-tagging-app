@@ -15,7 +15,7 @@ function Timer() {
         return () => clearInterval(timer)
     },)
     return (
-        <span>{seconds}</span>
+        <span>{('0'+(seconds-(seconds%60))/60).slice(-2)} : {('0' + (seconds%60)).slice(-2)}</span>
     );
 }
 
