@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { GameContext } from "./GameContextProvider";
+import Form from "./Form";
 
 function Timer() {
     const [seconds, setSeconds] = useState(0)
@@ -15,7 +16,10 @@ function Timer() {
         return () => clearInterval(timer)
     },)
     return (
-        <span>{('0'+(seconds-(seconds%60))/60).slice(-2)} : {('0' + (seconds%60)).slice(-2)}</span>
+        <>
+            <span>{('0'+(seconds-(seconds%60))/60).slice(-2)} : {('0' + (seconds%60)).slice(-2)}</span>
+            {isOver && <Form time={seconds}/>}
+        </>
     );
 }
 
