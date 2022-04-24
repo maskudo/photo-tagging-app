@@ -28,7 +28,7 @@ const getGameAssets = async () => {
 
 
 function GameScreen() {
-    const {setIsOver, setIsStart, setCharacterSprites} = useContext(GameContext)
+    const {setIsOver, setIsStart, setCharacterSprites, characterSprites} = useContext(GameContext)
     const [assets, setAssets] = useState("")
     const [dropDownCoord, setDropDownCoord] = useState({
         left:-1,
@@ -77,6 +77,9 @@ function GameScreen() {
                         }
                         setCharacters(characters.filter((characterName) => {
                             return !(characterName === char.name)
+                        }))
+                        setCharacterSprites(characterSprites.filter((characterSprite) => {
+                            return !(characterSprite.name === char.name)
                         }))
                     }
                 }
