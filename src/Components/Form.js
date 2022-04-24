@@ -1,37 +1,35 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { db } from "../firebase";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import styled from "styled-components";
 
-const PopupForm = styled.div`
-    display: flex;
+const PopupForm = styled.form`
+    display: ${props => `${props.display}`};
     flex-direction: column;
     position: fixed;
     top: 20%;
     left: 20%;
     z-index:5;
 `
-function Form() {
+function Form(props) {
     const [name, setName] = useState("")
+    const [submitted, setSubmitted] = useState(false)
     const OnSubmit = (e) => {
         e.preventDefault()
         console.log(name)
         const colRef = collection(db, "leaderboard")
         addDoc(colRef, {
             name: name,
-            time: 1200
+            time: props.time
         }).then(() => {
-            //hide form
-            console.log("donelol")
+            setSubmitted(true)
         })
 
     }
     return (
-        <PopupForm>
-            <form>
-                <input type="text" onChange={(e) => setName(e.target.value)} id="name" placeholder="Enter your name" required minLength={3}/>
-                <button type="submit" onClick={OnSubmit}>Submit</button>
-            </form>
+        <PopupForm display={submitted?"none":"flex"}>
+            <input type="text" onChange={(e) => setName(e.target.value)} id="name" placeholder="Enter your name" required minLength={3}/>
+            <button type="submit" onClick={OnSubmit}>Submit</button>
         </PopupForm>
     );
 }
