@@ -6,6 +6,7 @@ import { GameContext } from "./GameContextProvider";
 const Head = styled.div`
     display:flex;
     justify-content: space-between;
+    align-items: center;
     background: rgb(24, 26, 27);
     color: white;
     position: fixed;
@@ -15,26 +16,49 @@ const Head = styled.div`
     z-index: 10;
 `
 const SpriteContainer = styled.div `
-    
+    display:flex;
+    justify-content: center;
+    width: 33%;
+`
+const TimerContainer = styled.div`
+    width:33%;
+    text-align:center;
+    font-size: 2rem;
+`
+const NavLinkContainer = styled.div`
+    width:33%;
+    text-align: center;
 `
 const Img = styled.img `
-    display:inline;
-    width:5%;
-    height: auto;
-    margin: 5%;
+    width: 10%;
+`
+const NavLink = styled.a `
+    font-size: 2rem;
+    text-decoration: none;
+    :visited{
+        color:white;
+    }
+    :hover{
+        color:white;
+    }
+    :active{
+        color:white;
+    }
+
 `
 function Header() {
     const {characterSprites} = useContext(GameContext)
     return (
         <Head className="header">
-            <Timer/>
-            {/* <SpriteContainer>
+            <NavLinkContainer><NavLink href="/">Home</NavLink></NavLinkContainer>
+            <TimerContainer><Timer/></TimerContainer>
+            <SpriteContainer>
                 {characterSprites && characterSprites.map((character) => {
                     return (
                         <Img src={character.sprite} alt={character.name}/>
                     )
                 })}
-            </SpriteContainer> */}
+            </SpriteContainer>
         </Head>
     );
 }
