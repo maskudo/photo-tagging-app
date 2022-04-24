@@ -4,10 +4,10 @@ import Form from "./Form";
 
 function Timer() {
     const [seconds, setSeconds] = useState(0)
-    const {isOver} = useContext(GameContext) 
+    const {isOver, isStart} = useContext(GameContext) 
     useEffect(() => {
         let timer
-        if(!isOver){
+        if((!isOver) && isStart){
             timer = setInterval(() => {
                 setSeconds(seconds+1)
             }, 1000);
