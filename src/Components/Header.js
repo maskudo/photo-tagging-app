@@ -55,7 +55,7 @@ function Header() {
             <SpriteContainer>
                 {characterSprites && characterSprites.map((character) => {
                     return (
-                        <Img src={character.sprite} alt={character.name}/>
+                            <Img src={character.sprite} alt={character.name} title={character.name}/>
                     )
                 })}
             </SpriteContainer>
