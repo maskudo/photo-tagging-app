@@ -13,11 +13,21 @@ const getLeaderboard = async () => {
     return data
   }
 
-function Leaderboard() {
+function Leaderboard(props) {
     const [leaderboard, setLeaderboard] = useState("")
+    const [currentPlayer, setCurPlayer] = useState(props.currentPlayer)
     useEffect(() => {
         const getLbd = async () => {
             const data = await getLeaderboard()
+            const curPlayerIndex = data.findIndex((element) => {
+                if (element.time === currentPlayer.time){
+                    if (element.name === currentPlayer.name){
+                        return true
+                    }
+                }
+                return false
+            })
+            setCurPlayer({...currentPlayer, index:curPlayerIndex})
             setLeaderboard(data)
         } 
         getLbd()
@@ -45,6 +55,13 @@ function Leaderboard() {
                             )
                         })} 
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>{currentPlayer.index + 1}</td>
+                            <td>{currentPlayer.name}</td>
+                            <td>{('0'+(currentPlayer.time-(currentPlayer.time%60))/60).slice(-2)} : {('0' + (currentPlayer.time%60)).slice(-2)}</td>
+                        </tr>
+                    </tfoot>
                    
                 </table>}
         </>
