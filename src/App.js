@@ -1,4 +1,3 @@
-import './App.css';
 import Header from './Components/Header';
 import GameScreen from './Components/GameScreen';
 import { GameContextProvider } from './Components/GameContextProvider';
