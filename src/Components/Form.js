@@ -2,6 +2,7 @@ import { useState } from "react";
 import { db } from "../firebase";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import styled from "styled-components";
+import Leaderboard from "./Leaderboard"
 
 const PopupForm = styled.form`
     display: ${props => `${props.display}`};
@@ -27,10 +28,13 @@ function Form(props) {
 
     }
     return (
-        <PopupForm display={submitted?"none":"flex"}>
-            <input type="text" onChange={(e) => setName(e.target.value)} id="name" placeholder="Enter your name" required minLength={3}/>
-            <button type="submit" onClick={OnSubmit}>Submit</button>
-        </PopupForm>
+        <>
+            <PopupForm display={submitted?"none":"flex"}>
+                <input type="text" onChange={(e) => setName(e.target.value)} id="name" placeholder="Enter your name" required minLength={3}/>
+                <button type="submit" onClick={OnSubmit}>Submit</button>
+            </PopupForm>
+            {submitted && <Leaderboard/>}
+        </>
     );
 }
 
