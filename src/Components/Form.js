@@ -33,7 +33,11 @@ function Form(props) {
                 <input type="text" onChange={(e) => setName(e.target.value)} id="name" placeholder="Enter your name" required minLength={3}/>
                 <button type="submit" onClick={OnSubmit}>Submit</button>
             </PopupForm>
-            {submitted && <Leaderboard/>}
+            {submitted && <Leaderboard currentPlayer = {{
+                name: name,
+                time: props.time
+            }}
+            />}
         </>
     );
 }
