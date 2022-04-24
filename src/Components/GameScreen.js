@@ -28,7 +28,7 @@ const getGameAssets = async () => {
 
 
 function GameScreen() {
-    const {setIsOver, setIsStart} = useContext(GameContext)
+    const {setIsOver, setIsStart, setCharacterSprites} = useContext(GameContext)
     const [assets, setAssets] = useState("")
     const [dropDownCoord, setDropDownCoord] = useState({
         left:-1,
@@ -97,13 +97,16 @@ function GameScreen() {
     }, [])
     useEffect(() => {
         const characterList = []
+        const sprites = []
         if (assets){
             assets.characters.forEach((char) => {
                 characterList.push(char.name)
+                sprites.push({name:char.name, sprite: char.sprite})
             })
         }
         setCharacters(characterList)
-    }, [assets])
+        setCharacterSprites(sprites)
+    }, [assets, setCharacterSprites])
 
     return (
         <GameScreenDiv>
