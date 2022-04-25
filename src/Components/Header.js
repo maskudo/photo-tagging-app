@@ -7,7 +7,7 @@ const Head = styled.div`
     display:flex;
     justify-content: space-between;
     align-items: center;
-    background: rgb(24, 26, 27);
+    background: rgba(0,0,0,0.9);
     color: white;
     position: fixed;
     top: 0;
