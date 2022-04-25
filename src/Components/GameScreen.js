@@ -65,12 +65,12 @@ function GameScreen() {
             left:x_coord,
             top:y_coord
         })
-        setActive(true);
+        setActive(!active);
     } 
     const checkCoordinates = (character) => {
         assets.characters.forEach((char) => {
             if (char.name === character){
-                if (Math.abs(char.x - clickedCoord.x) < 5){
+                if (Math.abs(char.x - clickedCoord.x) < 3){
                     if (Math.abs(char.y - clickedCoord.y) < 5){
                         if(characters.length === 1){
                             setIsOver(true)
