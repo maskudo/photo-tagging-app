@@ -9,14 +9,14 @@ const MenuContainer = styled.div`
     position: absolute;
     border: solid black 1px;
     border-radius: 15%;
-    min-height: 2rem;
-    min-width: 5rem;
     color:white;
     left: ${props => `${props.left}px`};
     top: ${props => `${props.top}px`};
     z-index: 5;
 `
 const Button = styled.div`
+    min-height: 2rem;
+    min-width: 5rem;
     padding: 5%;
     text-align: center;
     :hover{
