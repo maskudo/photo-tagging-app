@@ -1,6 +1,38 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import styled from "styled-components";
+
+const Lboard = styled.div`
+    border: solid black 1px;
+    position: fixed;
+    top: 10%;
+    left: 35%;
+    width: 30%;
+    z-index: 20;
+`
+
+const Table = styled.table `
+    font-size: 1.4rem;
+    width:100%;
+    text-align: left;
+    border-collapse: collapse;
+    background: rgba(0,0,0,0.7);
+
+`
+const Thead = styled.thead `
+    background: rgba(0,0,0,0.6);
+`
+const Tfoot = styled.tfoot `
+    border: solid #5b0ca5 2px;
+    background: rgba(0,0,0,0.68);
+`
+const Th = styled.th `
+    padding: 2%;
+`
+const Td = styled.td `
+    padding: 2%;
+`
 
 const getLeaderboard = async () => {
     const colRef = collection(db, 'leaderboard');
@@ -33,38 +65,38 @@ function Leaderboard(props) {
         getLbd()
     }, [])
     return (
-        <>
-            <h1>leaderboard lol</h1>
+        <Lboard>
+            
             {leaderboard && 
-                <table>
-                    <thead>
+                <Table>
+                    <Thead>
                         <tr>
-                            <th>Rank</th>
-                            <th>Player</th>
-                            <th>Time</th>
+                            <Th>Rank</Th>
+                            <Th>Player</Th>
+                            <Th>Time</Th>
                         </tr>
-                    </thead>
+                    </Thead>
                     <tbody>
                         {leaderboard.slice(0,10).map((player, index) => {
                             return (
                                 <tr>
-                                    <td>{index + 1}</td>
-                                    <td>{player.name}</td>
-                                    <td>{('0'+(player.time-(player.time%60))/60).slice(-2)} : {('0' + (player.time%60)).slice(-2)}</td>
+                                    <Td>{index + 1}.</Td>
+                                    <Td>{player.name}</Td>
+                                    <Td>{('0'+(player.time-(player.time%60))/60).slice(-2)} : {('0' + (player.time%60)).slice(-2)}</Td>
                                 </tr>
                             )
                         })} 
                     </tbody>
-                    <tfoot>
+                    <Tfoot>
                         <tr>
-                            <td>{currentPlayer.index + 1}</td>
-                            <td>{currentPlayer.name}</td>
-                            <td>{('0'+(currentPlayer.time-(currentPlayer.time%60))/60).slice(-2)} : {('0' + (currentPlayer.time%60)).slice(-2)}</td>
+                            <Td>{currentPlayer.index + 1}.</Td>
+                            <Td>{currentPlayer.name}</Td>
+                            <Td>{('0'+(currentPlayer.time-(currentPlayer.time%60))/60).slice(-2)} : {('0' + (currentPlayer.time%60)).slice(-2)}</Td>
                         </tr>
-                    </tfoot>
+                    </Tfoot>
                    
-                </table>}
-        </>
+                </Table>}
+        </Lboard>
     );
 }
 
