@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, limit, orderBy } from "firebase/firestore";
 import { db } from "../firebase";
 import styled from "styled-components";
 
@@ -36,12 +36,12 @@ const Td = styled.td `
 
 const getLeaderboard = async () => {
     const colRef = collection(db, 'leaderboard');
+    const q = query(colRef, orderBy("time", "asc"), orderBy("name", "asc"), limit(10))
     let data = []
-    const querySnapshot = await getDocs(colRef);
+    const querySnapshot = await getDocs(q);
     querySnapshot.docs.forEach((doc) => {
         data.push({...doc.data(), id:doc.id})
     })
-    data.sort((a,b) => {return (a.time-b.time)})
     return data
   }
 
@@ -51,7 +51,7 @@ function Leaderboard(props) {
     useEffect(() => {
         const getLbd = async () => {
             const data = await getLeaderboard()
-            const curPlayerIndex = data.findIndex((element) => {
+            let curPlayerIndex = data.findIndex((element) => {
                 if (element.time === currentPlayer.time){
                     if (element.name === currentPlayer.name){
                         return true
@@ -59,8 +59,9 @@ function Leaderboard(props) {
                 }
                 return false
             })
-            setCurPlayer({...currentPlayer, index:curPlayerIndex})
+            
             setLeaderboard(data)
+            setCurPlayer({...currentPlayer, index:curPlayerIndex})
         } 
         getLbd()
     }, [])
@@ -89,7 +90,7 @@ function Leaderboard(props) {
                     </tbody>
                     <Tfoot>
                         <tr>
-                            <Td>{currentPlayer.index + 1}.</Td>
+                            <Td>{currentPlayer.index===-1 ? "-" : (currentPlayer.index + 1 + ".") }</Td>
                             <Td>{currentPlayer.name}</Td>
                             <Td>{('0'+(currentPlayer.time-(currentPlayer.time%60))/60).slice(-2)} : {('0' + (currentPlayer.time%60)).slice(-2)}</Td>
                         </tr>
